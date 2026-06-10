@@ -1,0 +1,40 @@
+{
+  "name": "mcp-forge",
+  "version": "0.1.0",
+  "description": "Turn any OpenAPI spec into a working MCP server — give Claude tools for any REST API in 30 seconds, zero codegen.",
+  "type": "module",
+  "bin": { "mcp-forge": "./dist/cli.js" },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "smoke": "node -e \"import('./dist/index.js').then(async m => { const fs=await import('node:fs/promises'); const spec=JSON.parse(await fs.readFile('examples/petstore.json','utf8')); const t=m.openapiToTools(spec); console.log('tools:', t.map(x=>x.name).join(', ')); console.log('base:', m.getBaseUrl(spec)); })\""
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "anthropic",
+    "openapi",
+    "swagger",
+    "ai",
+    "agents",
+    "tools",
+    "llm"
+  ],
+  "license": "MIT",
+  "author": "Neil Gilani",
+  "repository": { "type": "git", "url": "https://github.com/hilothefunnydog123-coder/mcp-forge" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "yaml": "^2.5.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0"
+  }
+}
